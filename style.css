@@ -1,0 +1,423 @@
+/* --- VARIABLES DE CONFIGURATION DES THÈMES --- */
+.dark-theme {
+    --bg-page: #050505;
+    --bg-card: rgba(255, 255, 255, 0.03);
+    --border-subtle: rgba(255, 255, 255, 0.06);
+    --border-hover: rgba(255, 255, 255, 0.15);
+    --text-primary: #f5f5f7;
+    --text-secondary: #8e9196;
+    --phone-bg: linear-gradient(180deg, #121212 0%, #080808 100%);
+    --avatar-bg: #ffffff;
+    --avatar-text: #050505;
+    --toggle-bg: rgba(255, 255, 255, 0.07);
+    --toggle-color: #ffffff;
+    --bg-icon: rgba(255, 255, 255, 0.05);
+}
+
+.light-theme {
+    --bg-page: #edf0f5;
+    --bg-card: rgba(0, 0, 0, 0.02);
+    --border-subtle: rgba(0, 0, 0, 0.08);
+    --border-hover: rgba(0, 0, 0, 0.2);
+    --text-primary: #121212;
+    --text-secondary: #65676b;
+    --phone-bg: linear-gradient(180deg, #ffffff 0%, #f7f7fa 100%);
+    --avatar-bg: #121212;
+    --avatar-text: #ffffff;
+    --toggle-bg: rgba(0, 0, 0, 0.07);
+    --toggle-color: #121212;
+    --bg-icon: rgba(0, 0, 0, 0.04);
+}
+
+/* Réinitialisation globale */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+    background: var(--bg-page);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    color: var(--text-primary);
+}
+
+/* CONTAINER UNIQUE DU SMARTPHONE */
+.phone-container {
+    position: relative;
+    width: 100%;
+    max-width: 390px;
+    background: var(--phone-bg);
+    border-radius: 28px;
+    padding: 24px;
+    box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--border-subtle);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* INTERRUPTEUR DE THÈME */
+.theme-toggle {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: none;
+    background: var(--toggle-bg);
+    color: var(--toggle-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.theme-toggle svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* --- EN-TÊTE & LOGO --- */
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.badge-premium {
+    background: var(--text-primary);
+    color: var(--avatar-text);
+    font-size: 9px;
+    font-weight: 700;
+    padding: 5px 14px;
+    border-radius: 100px;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    letter-spacing: 1px;
+}
+
+.icon-star {
+    width: 10px;
+    height: 10px;
+}
+
+/* Configuration optimisée pour votre nouveau logo sombre */
+.logo-container {
+    width: 80px;            /* Taille idéale pour ce format de logo */
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 20px;    /* Aligné sur l'arrondi de votre icône */
+    background: transparent; /* On supprime le fond gris pour laisser le noir du logo s'imposer[cite: 1] */
+    border: none;           /* On retire la bordure grise pour un look épuré[cite: 1] */
+}
+
+.logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;      /* Permet au logo de remplir parfaitement le carré[cite: 1] */
+}
+
+.company-info h1 {
+    color: var(--text-primary);
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.company-info h1 span {
+    font-weight: 300;
+    color: var(--text-secondary);
+}
+
+.company-tagline {
+    color: var(--text-secondary);
+    font-size: 11px;
+    margin-top: 3px;
+    letter-spacing: 0.2px;
+}
+
+/* --- CARTE PROFIL ET PHOTO --- */
+.profile-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 22px;
+    padding: 18px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    backdrop-filter: blur(10px);
+}
+
+.profile-avatar {
+    width: 65px;
+    height: 65px;
+    background: var(--avatar-bg);
+    color: var(--avatar-text);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: -0.5px;
+    overflow: hidden;
+    border: 1px solid var(--border-subtle);
+}
+
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-name {
+    color: var(--text-primary);
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+}
+
+.profile-role {
+    color: var(--text-secondary);
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.icon-briefcase {
+    width: 13px;
+    height: 13px;
+    color: var(--text-secondary);
+}
+
+/* --- SEPARATEUR DE SECTION --- */
+.section-title {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+/* --- LISTE DES LIENS --- */
+.links-list {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.link-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.icon-wrapper {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    background: var(--bg-icon);
+    color: var(--text-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 14px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.icon-wrapper svg {
+    width: 17px;
+    height: 17px;
+}
+
+.link-content {
+    flex-grow: 1;
+}
+
+.link-label {
+    color: var(--text-secondary);
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+}
+
+.link-value {
+    color: var(--text-primary);
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.arrow-right {
+    color: var(--text-secondary);
+    font-size: 11px;
+    opacity: 0.4;
+    transition: transform 0.2s, color 0.2s;
+}
+
+/* --- INTERACTIF : EFFETS DE COULEURS DE REDIRECTION --- */
+
+/* 1. Téléphone (Noir/Gris Métallisé) */
+.link-item.hover-phone:hover, .link-item.hover-phone:active {
+    background: #1a1a1a;
+    border-color: #555555;
+    transform: translateY(-2px);
+}
+.profile-avatar {
+    width: 65px;
+    height: 65px;
+    background: var(--avatar-bg);
+    color: var(--avatar-text);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 22px; /* Légèrement agrandi pour un rendu plus pro */
+    letter-spacing: -0.5px;
+    border: 1px solid var(--border-subtle);
+}
+.link-item.hover-phone:hover .icon-wrapper {
+    background: #ffffff;
+    color: #111111;
+}
+.link-item.hover-phone:hover .link-label { color: #8e9196; }
+.link-item.hover-phone:hover .link-value { color: #ffffff; }
+.link-item.hover-phone:hover .arrow-right { color: #ffffff; opacity: 1; transform: translateX(3px); }
+
+/* 2. Instagram (Dégradé officiel) */
+.link-item.hover-instagram:hover, .link-item.hover-instagram:active {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    border-color: #cc2366;
+    transform: translateY(-2px);
+}
+.link-item.hover-instagram:hover .icon-wrapper {
+    background: #ffffff;
+    color: #bc1888;
+}
+.link-item.hover-instagram:hover .link-label { color: rgba(255, 255, 255, 0.8); }
+.link-item.hover-instagram:hover .link-value { color: #ffffff; }
+.link-item.hover-instagram:hover .arrow-right { color: #ffffff; opacity: 1; transform: translateX(3px); }
+
+/* 3. Gmail (Rouge) */
+.link-item.hover-email:hover, .link-item.hover-email:active {
+    background: rgba(219, 68, 85, 0.12);
+    border-color: #db4437;
+    transform: translateY(-2px);
+}
+.link-item.hover-email:hover .icon-wrapper {
+    background: #db4437;
+    color: #ffffff;
+}
+.link-item.hover-email:hover .arrow-right { color: #db4437; opacity: 1; transform: translateX(3px); }
+
+/* 4. Site Web (Blanc ou Noir selon thème) */
+.link-item.hover-web:hover, .link-item.hover-web:active {
+    background: var(--text-primary);
+    border-color: var(--text-primary);
+    transform: translateY(-2px);
+}
+.link-item.hover-web:hover .icon-wrapper {
+    background: var(--bg-page);
+    color: var(--text-primary);
+}
+.link-item.hover-web:hover .link-label { color: var(--text-secondary); }
+.link-item.hover-web:hover .link-value { color: var(--avatar-text); }
+.link-item.hover-web:hover .arrow-right { color: var(--avatar-text); opacity: 1; transform: translateX(3px); }
+
+/* 5. WhatsApp (Vert) */
+.link-item.hover-whatsapp:hover, .link-item.hover-whatsapp:active {
+    background: rgba(37, 211, 102, 0.12);
+    border-color: #25d366;
+    transform: translateY(-2px);
+}
+.link-item.hover-whatsapp:hover .icon-wrapper {
+    background: #25d366;
+    color: #ffffff;
+}
+.link-item.hover-whatsapp:hover .arrow-right { color: #25d366; opacity: 1; transform: translateX(3px); }
+
+/* 6. Bouton Enregistrer (Violet) */
+.link-item.hover-save {
+    border-style: dashed;
+}
+.link-item.hover-save:hover, .link-item.hover-save:active {
+    background: rgba(138, 43, 226, 0.12);
+    border-color: #8a2be2;
+    border-style: solid;
+    transform: translateY(-2px);
+}
+.link-item.hover-save:hover .icon-wrapper {
+    background: #8a2be2;
+    color: #ffffff;
+}
+.link-item.hover-save:hover .arrow-right { color: #8a2be2; opacity: 1; transform: translateX(3px); }
+
+
+/* --- BOUTON PIED DE PAGE --- */
+.footer-buttons {
+    margin-top: 5px;
+}
+
+.btn-share {
+    width: 100%;
+    padding: 13px;
+    border-radius: 100px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--text-primary);
+    color: var(--avatar-text);
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-share:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+}
+
+.light-theme .btn-share:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.btn-share:active {
+    transform: translateY(0);
+}
