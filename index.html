@@ -3,14 +3,411 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SPECTER CARD by ps_corp</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>SPECTER CARD by PS Corp</title>
+    <style>
+        
+        .dark-theme {
+            --bg-page: #0a0a0c;
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --border-subtle: rgba(255, 255, 255, 0.07);
+            --border-hover: rgba(255, 255, 255, 0.18);
+            --text-primary: #f5f5f7;
+            --text-secondary: #9ea1a8;
+            --phone-bg: linear-gradient(180deg, #121215 0%, #08080a 100%);
+            --avatar-bg: #ffffff;
+            --avatar-text: #0a0a0c;
+            --toggle-bg: rgba(255, 255, 255, 0.08);
+            --toggle-color: #ffffff;
+            --bg-icon: rgba(255, 255, 255, 0.05);
+            --accent-glow: rgba(255, 255, 255, 0.02);
+        }
+
+        .light-theme {
+            --bg-page: #f0f2f5;
+            --bg-card: rgba(0, 0, 0, 0.02);
+            --border-subtle: rgba(0, 0, 0, 0.08);
+            --border-hover: rgba(0, 0, 0, 0.22);
+            --text-primary: #1c1c1e;
+            --text-secondary: #6e7178;
+            --phone-bg: linear-gradient(180deg, #ffffff 0%, #f4f5f8 100%);
+            --avatar-bg: #1c1c1e;
+            --avatar-text: #ffffff;
+            --toggle-bg: rgba(0, 0, 0, 0.06);
+            --toggle-color: #1c1c1e;
+            --bg-icon: rgba(0, 0, 0, 0.04);
+            --accent-glow: rgba(0, 0, 0, 0.01);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            transition: background 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
+                        border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
+                        color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            background: var(--bg-page);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 16px;
+            color: var(--text-primary);
+        }
+        .phone-container {
+            position: relative;
+            width: 100%;
+            max-width: 390px;
+            background: var(--phone-bg);
+            border-radius: 32px;
+            padding: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            overflow: hidden;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: var(--toggle-bg);
+            color: var(--toggle-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+        }
+
+        .theme-toggle svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        .badge-premium {
+            background: var(--text-primary);
+            color: var(--avatar-text);
+            font-size: 9px;
+            font-weight: 700;
+            padding: 5px 14px;
+            border-radius: 100px;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            letter-spacing: 0.8px;
+        }
+
+        .icon-star {
+            width: 10px;
+            height: 10px;
+        }
+
+        .user-photo-container {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            padding: 3px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        .user-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .company-info h1 {
+            color: var(--text-primary);
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .company-info h1 span {
+            font-weight: 300;
+            color: var(--text-secondary);
+        }
+
+        .company-tagline {
+            color: var(--text-secondary);
+            font-size: 11px;
+            margin-top: 2px;
+            letter-spacing: 0.2px;
+        }
+
+        .profile-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 24px;
+            padding: 18px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .profile-avatar {
+            width: 58px;
+            height: 58px;
+            background: var(--avatar-bg);
+            color: var(--avatar-text);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 700;
+            font-size: 19px;
+            letter-spacing: -0.5px;
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .profile-name {
+            color: var(--text-primary);
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+        }
+
+        .profile-role {
+            color: var(--text-secondary);
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .icon-briefcase {
+            width: 13px;
+            height: 13px;
+            color: var(--text-secondary);
+        }
+
+        .section-title {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-top: 4px;
+        }
+
+        .links-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .link-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 18px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            cursor: pointer;
+            width: 100%;
+            text-align: left;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .icon-wrapper {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            background: var(--bg-icon);
+            color: var(--text-primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 14px;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .icon-wrapper svg {
+            width: 17px;
+            height: 17px;
+        }
+
+        .link-content {
+            flex-grow: 1;
+        }
+
+        .link-label {
+            color: var(--text-secondary);
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+
+        .link-value {
+            color: var(--text-primary);
+            font-size: 13.5px;
+            font-weight: 500;
+        }
+
+        .arrow-right {
+            color: var(--text-secondary);
+            font-size: 11px;
+            opacity: 0.35;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+
+        /* Téléphone */
+        .link-item.hover-phone:hover, .link-item.hover-phone:active {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+        }
+        .link-item.hover-phone:hover .icon-wrapper {
+            background: #19f627;
+            color: #111111;
+        }
+        .link-item.hover-phone:hover .arrow-right { opacity: 1; transform: translateX(3px); }
+
+        /* Instagram */
+        .link-item.hover-instagram:hover, .link-item.hover-instagram:active {
+            background: linear-gradient(45deg, rgba(240, 148, 51, 0.15) 0%, rgba(220, 39, 67, 0.15) 50%, rgba(188, 24, 136, 0.15) 100%);
+            border-color: #bc1888;
+            transform: translateY(-2px);
+        }
+        .link-item.hover-instagram:hover .icon-wrapper {
+            background: linear-gradient(45deg, #f09433, #bc1888);
+            color: #ffffff;
+        }
+        .link-item.hover-instagram:hover .arrow-right { color: #bc1888; opacity: 1; transform: translateX(3px); }
+
+        /* Gmail */
+        .link-item.hover-email:hover, .link-item.hover-email:active {
+            background: rgba(219, 68, 85, 0.1);
+            border-color: #ffffff;
+            transform: translateY(-2px);
+        }
+        .link-item.hover-email:hover .icon-wrapper {
+            background: #db4437;
+            color: #ffffff;
+        }
+        .link-item.hover-email:hover .arrow-right { color: #db4437; opacity: 1; transform: translateX(3px); }
+
+        /* Site Web */
+        .link-item.hover-web:hover, .link-item.hover-web:active {
+            background: var(--text-primary);
+            border-color: var(--text-primary);
+            transform: translateY(-2px);
+        }
+        .link-item.hover-web:hover .icon-wrapper {
+            background: var(--bg-page);
+            color: var(--text-primary);
+        }
+        .link-item.hover-web:hover .link-label { color: var(--text-secondary); }
+        .link-item.hover-web:hover .link-value { color: var(--avatar-text); }
+        .link-item.hover-web:hover .arrow-right { color: var(--avatar-text); opacity: 1; transform: translateX(3px); }
+
+        /* WhatsApp */
+        .link-item.hover-whatsapp:hover, .link-item.hover-whatsapp:active {
+            background: rgba(37, 211, 102, 0.1);
+            border-color: #25d366;
+            transform: translateY(-2px);
+        }
+        .link-item.hover-whatsapp:hover .icon-wrapper {
+            background: #25d366;
+            color: #ffffff;
+        }
+        .link-item.hover-whatsapp:hover .arrow-right { color: #25d366; opacity: 1; transform: translateX(3px); }
+
+        /* Bouton Enregistrer vCard (Bordure en pointillés) */
+        .link-item.hover-save {
+            border-style: dashed;
+        }
+        .link-item.hover-save:hover, .link-item.hover-save:active {
+            background: rgba(138, 43, 226, 0.1);
+            border-color: #8a2be2;
+            border-style: solid;
+            transform: translateY(-2px);
+        }
+        .link-item.hover-save:hover .icon-wrapper {
+            background: #8a2be2;
+            color: #ffffff;
+        }
+        .link-item.hover-save:hover .arrow-right { color: #8a2be2; opacity: 1; transform: translateX(3px); }
+
+        /*  PIED DE PAGE : BOUTON PARTAGE */
+        .footer-buttons {
+            margin-top: 4px;
+        }
+
+        .btn-share {
+            width: 100%;
+            padding: 14px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--text-primary);
+            color: var(--avatar-text);
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-share:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-share:active {
+            transform: translateY(0);
+        }
+    </style>
 </head>
-<body class="dark-theme"> 
+<body class="dark-theme">
 
     <div class="phone-container">
         
-        <!-- Bouton de bascule de Thème (Sombre / Clair) -->
+        <!-- Bouton Changement Thème Rapide -->
         <button class="theme-toggle" id="themeToggleBtn" aria-label="Changer le thème">
             <svg class="icon-sun" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-12.37c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.39.39-1.03 0-1.41zm-12.37 12.37c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.39.39-1.03 0-1.41z"/>
@@ -25,12 +422,12 @@
                 <svg class="icon-star" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
                 </svg>
-                Premium Member
+                Carte Premium
             </div>
             
-            <!-- Nouveau Logo PS Corp -->
-            <div class="logo-container">
-                <img src="images/logo.jpg" alt="PS Corp Logo" class="logo-img" id="logoEntreprise">
+            <!-- Votre Photo (Appelle photo.png directement au même niveau) -->
+            <div class="user-photo-container">
+                <img src="logo.jpg" alt="MUDIAYI NGOYI PRECIEUX" class="user-photo" onerror="this.src='https://via.placeholder.com/150/1e1e24/ffffff?text=MP'">
             </div>
             
             <div class="company-info">
@@ -39,21 +436,19 @@
             </div>
         </header>
 
-        <!-- Profil Personnel -->
-<section class="profile-card">
-    <div class="profile-avatar" id="avatarContainer"></div>
-    <h2 class="profile-name" id="nomEmploye">Chargement...</h2>
-    <div class="profile-role">
-        <svg class="icon-briefcase" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/>
-        </svg>
-        <span id="posteEmploye">Chargement...</span>
-    </div>
-</section>
+        <!-- Profil Personnel avec vos Initiales dynamiques -->
+        <section class="profile-card">
+            <div class="profile-avatar" id="avatarContainer"></div>
+            <h2 class="profile-name" id="nomEmploye">Chargement...</h2>
+            <div class="profile-role">
+                <svg class="icon-briefcase" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/>
+                </svg>
+                <span id="posteEmploye">Chargement...</span>
+            </div>
+        </section>
 
-        
-
-        <div class="section-title">Carte de visite connectée</div>
+        <div class="section-title">Carte de visite </div>
 
         <nav class="links-list">
             
@@ -82,16 +477,22 @@
             </a>
 
             <!-- Email -->
-            <a href="#" class="link-item hover-email" id="btnEmail">
-                <div class="icon-wrapper">
-                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                </div>
-                <div class="link-content">
-                    <div class="link-label">Email</div>
-                    <div class="link-value" id="txtEmail">...</div>
-                </div>
-                <div class="arrow-right">➔</div>
-            </a>
+<a href="#" class="link-item hover-email" id="btnEmail">
+    <div class="icon-wrapper">
+        <svg viewBox="0 0 24 24" width="100%" height="100%">
+            <path d="M4 20H6V9.5L2 6.5V18C2 19.1 2.9 20 4 20Z" fill="#4285F4" />
+            <path d="M20 20H18V9.5L22 6.5V18C22 19.1 21.1 20 20 20Z" fill="#34A853" />
+            <path d="M18 9.5V4H20C21.1 4 22 4.9 22 6V6.5L18 9.5Z" fill="#FBBC05" />
+            <path d="M12 14L18 9.5V4H16.5L12 7.5L7.5 4H6V9.5L12 14Z" fill="#EA4335" />
+            <path d="M2 6.5L6 9.5V4H5.5L2 6.5Z" fill="#C5221F" />
+        </svg>
+    </div>
+    <div class="link-content">
+        <div class="link-label">Email</div>
+        <div class="link-value" id="txtEmail">...</div>
+    </div>
+    <div class="arrow-right">➔</div>
+</a>
 
             <!-- Site Web -->
             <a href="#" target="_blank" class="link-item hover-web" id="btnSiteWeb">
@@ -140,7 +541,7 @@
     </div>
 
     <script>
-        // Centralisation des données 
+        // Vos informations exactes, centralisées
         const donnéesCarte = {
             prenom: "MUDIAYI NGOYI",
             nom: "PRECIEUX",
@@ -149,8 +550,8 @@
             tagline: "Innovation technologique",
             telephone: "+243853013816",
             telephoneFormate: "+243 853 013 816",
-            instagramUser: "lazy_specter_",
-            instagramUrl: "https://instagram.com/lazy_specter_",
+            instagramUser: "mnpprecieux",
+            instagramUrl: "https://instagram.com/mnpprecieux",
             email: "mnpprecieux@gmail.com",
             siteWeb: "devon-rdc.vercel.app",
             urlSiteWeb: "https://devon-rdc.vercel.app"
@@ -158,13 +559,13 @@
 
         document.addEventListener("DOMContentLoaded", () => {
             
-            // --- INJECTION DE DONNÉES DANS L'INTERFACE ---
+            // Injections des données dans l'interface
             document.getElementById("nomEntreprise").innerHTML = `<span>${donnéesCarte.entreprise.split(' ')[0]}</span> ${donnéesCarte.entreprise.split(' ').slice(1).join(' ')}`;
             document.getElementById("taglineEntreprise").textContent = donnéesCarte.tagline;
             document.getElementById("nomEmploye").textContent = `${donnéesCarte.prenom} ${donnéesCarte.nom}`;
             document.getElementById("posteEmploye").textContent = donnéesCarte.poste;
             
-            // Paramétrage des boutons
+            // Liaisons d'actions rapides
             document.getElementById("btnTelephone").href = `tel:${donnéesCarte.telephone}`;
             document.getElementById("txtTelephone").textContent = donnéesCarte.telephoneFormate;
 
@@ -180,19 +581,12 @@
             document.getElementById("btnWhatsappLink").href = `https://wa.me/${donnéesCarte.telephone.replace('+', '')}`;
             document.getElementById("txtWhatsApp").textContent = donnéesCarte.telephoneFormate;
 
-            // Génération et affichage immédiat des initiales (ex: M + P = MP)
-const avatarContainer = document.getElementById("avatarContainer");
-const initiales = (donnéesCarte.prenom.charAt(0) + donnéesCarte.nom.charAt(0)).toUpperCase();
-avatarContainer.textContent = initiales;
-            
-            
-            avatarImg.onerror = () => {
-                avatarImg.style.display = "none";
-                const initiales = (donnéesCarte.prenom.charAt(0) + donnéesCarte.nom.charAt(0)).toUpperCase();
-                avatarContainer.textContent = initiales;
-            };
+            // Génération des initiales dynamiques ("MP")
+            const avatarContainer = document.getElementById("avatarContainer");
+            const initiales = (donnéesCarte.prenom.charAt(0) + donnéesCarte.nom.charAt(0)).toUpperCase();
+            avatarContainer.textContent = initiales;
 
-            // --- TÉLÉCHARGEMENT DU FICHIER CONTACT (VCARD) ---
+            // Téléchargement du contact en un clic (VCard)
             const btnEnregistrer = document.getElementById("btnEnregistrer");
             btnEnregistrer.addEventListener("click", () => {
                 const vcard = `BEGIN:VCARD\n` +
@@ -217,7 +611,7 @@ avatarContainer.textContent = initiales;
                 URL.revokeObjectURL(url);
             });
 
-            // --- BOUTON DE PARTAGE DE LIEN ---
+            // Bouton de partage natif (Mobile Share)
             const btnPartager = document.getElementById("btnActionPartager");
             btnPartager.addEventListener("click", async () => {
                 if (navigator.share) {
@@ -228,7 +622,7 @@ avatarContainer.textContent = initiales;
                             url: window.location.href
                         });
                     } catch (err) {
-                        console.log("Partage non finalisé.");
+                        console.log("Partage annulé.");
                     }
                 } else {
                     navigator.clipboard.writeText(window.location.href);
@@ -236,7 +630,7 @@ avatarContainer.textContent = initiales;
                 }
             });
 
-            // --- SÉLECTEUR DE THÈME DYNAMIQUE ---
+            // Bascule de thème Claire / Sombre
             const themeToggleBtn = document.getElementById("themeToggleBtn");
             const body = document.body;
             const iconSun = themeToggleBtn.querySelector(".icon-sun");
