@@ -579,7 +579,6 @@
             document.getElementById("btnWhatsappLink").href = `https://wa.me/${donnéesCarte.telephone.replace('+', '')}`;
             document.getElementById("txtWhatsApp").textContent = donnéesCarte.telephoneFormate;
 
-            // Génération des initiales dynamiques ("MP")
             const avatarContainer = document.getElementById("avatarContainer");
             const initiales = (donnéesCarte.prenom.charAt(0) + donnéesCarte.nom.charAt(0)).toUpperCase();
             avatarContainer.textContent = initiales;
